@@ -30,11 +30,11 @@ export default async function HeroSection() {
   return (
     <section
       id="home"
-      className="relative flex min-h-screen flex-col items-center overflow-hidden px-6 py-20"
+      className="relative flex min-h-screen flex-col items-center overflow-hidden py-20"
     >
       <BackgroundRippleEffect rows={80} cols={100} cellSize={25} />
 
-      <div className="relative z-10 container mx-auto max-w-6xl">
+      <div className="relative z-10 container mx-auto max-w-6xl px-6">
         <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2">
           <div className="space-y-6">
             <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-7xl">

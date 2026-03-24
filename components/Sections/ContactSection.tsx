@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { defineQuery } from "next-sanity";
-import WorldMapDemo from "@/components/ui/world-map";
+import WorldMapDemo from "@/components/world-map-demo";
 import { sanityFetch } from "@/sanity/lib/live";
 import { ContactForm } from "./ContactForm";
 
@@ -19,8 +19,10 @@ export async function ContactSection() {
   }
 
   return (
-    <section id="contact" className="py-20 px-6 pb-40 bg-muted/30">
-      <WorldMapDemo />
+    <section id="contact" className="py-20 px-6 pb-40 bg-muted/50">
+     <div className="mb-24">
+  <WorldMapDemo />
+    </div>
 
       <div className="container mx-auto max-w-4xl">
         <div className="text-center mb-12">
