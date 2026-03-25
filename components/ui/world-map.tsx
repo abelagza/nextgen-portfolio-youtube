@@ -5,9 +5,14 @@ import { motion } from "motion/react";
 import DottedMap from "dotted-map";
 import { useTheme } from "next-themes";
 
+type MapPoint = {
+  lat: number;
+  lng: number;
+};
+
 type MapDot = {
-  start: { lat: number; lng: number; label?: string };
-  end: { lat: number; lng: number; label?: string };
+  start: MapPoint;
+  end: MapPoint;
 };
 
 type WorldMapProps = {
@@ -17,7 +22,7 @@ type WorldMapProps = {
 
 export function WorldMap({
   dots = [],
-  lineColor = "#0ea5e9",
+  lineColor = "#e9450ecb",
 }: WorldMapProps) {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const map = new DottedMap({ height: 100, grid: "diagonal" });
@@ -39,7 +44,7 @@ export function WorldMap({
 
   const createCurvedPath = (
     start: { x: number; y: number },
-    end: { x: number; y: number }
+    end: { x: number; y: number },
   ) => {
     const midX = (start.x + end.x) / 2;
     const midY = Math.min(start.y, end.y) - 50;
@@ -47,10 +52,10 @@ export function WorldMap({
   };
 
   return (
-    <div className="w-full aspect-[2/1] dark:bg-black bg-white rounded-lg relative font-sans">
+    <div className="relative w-full aspect-[2/1] rounded-lg bg-white font-sans dark:bg-black">
       <img
         src={`data:image/svg+xml;utf8,${encodeURIComponent(svgMap)}`}
-        className="h-full w-full [mask-image:linear-gradient(to_bottom,transparent,white_10%,white_90%,transparent)] pointer-events-none select-none"
+        className="h-full w-full pointer-events-none select-none [mask-image:linear-gradient(to_bottom,transparent,white_10%,white_90%,transparent)]"
         alt="world map"
         height="495"
         width="1056"
@@ -60,7 +65,7 @@ export function WorldMap({
       <svg
         ref={svgRef}
         viewBox="0 0 800 400"
-        className="w-full h-full absolute inset-0 pointer-events-none select-none"
+        className="absolute inset-0 h-full w-full pointer-events-none select-none"
       >
         {dots.map((dot, i) => {
           const startPoint = projectPoint(dot.start.lat, dot.start.lng);
@@ -100,21 +105,47 @@ export function WorldMap({
 
           return (
             <g key={`points-group-${i}`}>
-              {/* Start */}
-              <g>
+              <g key={`start-${i}`}>
                 <circle cx={start.x} cy={start.y} r="2" fill={lineColor} />
                 <circle cx={start.x} cy={start.y} r="2" fill={lineColor} opacity="0.5">
-                  <animate attributeName="r" from="2" to="8" dur="1.5s" repeatCount="indefinite" />
-                  <animate attributeName="opacity" from="0.5" to="0" dur="1.5s" repeatCount="indefinite" />
+                  <animate
+                    attributeName="r"
+                    from="2"
+                    to="8"
+                    dur="1.5s"
+                    begin="0s"
+                    repeatCount="indefinite"
+                  />
+                  <animate
+                    attributeName="opacity"
+                    from="0.5"
+                    to="0"
+                    dur="1.5s"
+                    begin="0s"
+                    repeatCount="indefinite"
+                  />
                 </circle>
               </g>
 
-              {/* End */}
-              <g>
+              <g key={`end-${i}`}>
                 <circle cx={end.x} cy={end.y} r="2" fill={lineColor} />
                 <circle cx={end.x} cy={end.y} r="2" fill={lineColor} opacity="0.5">
-                  <animate attributeName="r" from="2" to="8" dur="1.5s" repeatCount="indefinite" />
-                  <animate attributeName="opacity" from="0.5" to="0" dur="1.5s" repeatCount="indefinite" />
+                  <animate
+                    attributeName="r"
+                    from="2"
+                    to="8"
+                    dur="1.5s"
+                    begin="0s"
+                    repeatCount="indefinite"
+                  />
+                  <animate
+                    attributeName="opacity"
+                    from="0.5"
+                    to="0"
+                    dur="1.5s"
+                    begin="0s"
+                    repeatCount="indefinite"
+                  />
                 </circle>
               </g>
             </g>
